@@ -1,0 +1,1 @@
+export const api = "https://v6.exchangerate-api.com/v6/2138c66c539a1869cab68019/latest/USD"

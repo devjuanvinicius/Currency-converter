@@ -1,0 +1,115 @@
+<!-- TODO
+  
+  * Fazer tooltip para o "principais cambios", ela vai explicar que a moeda base para aquelas conversões é o real;
+  * Fazer a conversao dos cambios
+  * Fazer a traduçao do restante do site 
+-->
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Conversor de moeda</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="shortcut icon"
+      href="./assets/euro-coin.png"
+      type="image/x-icon"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="script.js" defer type="module"></script>
+  </head>
+  <body>
+    <header class="slideInDown language-change" data-language="pt">
+      <button class="btn-language" id="btnLanguage">
+        <img src="./assets/icons8-eua-50.png" alt="" id="flags" />
+      </button>
+    </header>
+
+    <h1 class="slideInDown">Conversor de moedas</h1>
+
+    <main class="slideInLeft" data-language="pt">
+      <div class="div-input">
+        <div class="dropdown">
+          <span class="title-dropdown">Converter de</span>
+          <div class="select">
+            <span class="selected-currency" id="from-currency" data-currency="USD">USD - Dólar</span>
+            <i data-lucide="chevron-down" id="chevron"></i>
+          </div>
+
+          <div>
+            <ul class="options">
+              <li data-currency="BRL">BRL - Real</li>
+              <li class="active" data-currency="USD">USD - Dólar</li>
+              <li data-currency="EUR">EUR - Euro</li>
+              <li data-currency="GBP">GBP - Libra</li>
+              <li data-currency="JPY">JPY - Ienes</li>
+            </ul>
+          </div>
+
+          <input type="text" min="0" id="input-conversion" />
+        </div>
+
+        <div class="arrow-converse" id="arrow-converse">
+          <i data-lucide="arrow-right-left"></i>
+        </div>
+
+        <div class="dropdown">
+          <span class="title-dropdown">Para</span>
+          <div class="select">
+            <span class="selected-currency" data-currency="BRL" id="to-currency">BRL - Real</span>
+            <i data-lucide="chevron-down" id="chevron"></i>
+          </div>
+
+          <div>
+            <ul class="options">
+              <li class="active" data-currency="BRL">BRL - Brasil</li>
+              <li data-currency="USD">USD - Dólar</li>
+              <li data-currency="EUR">EUR - Euro</li>
+              <li data-currency="GBP">GBP - Libra</li>
+              <li data-currency="JPY">JPY - Ienes</li>
+            </ul>
+          </div>
+
+          <input type="text" min="0" id="converted-input" disabled />
+          <i data-lucide="check" class="icon-copy icon-copy-disabled"></i>
+          <i data-lucide="clipboard-plus" class="icon-copy"></i>
+        </div>
+
+        <button id="btn-conversion">Converter</button>
+      </div>
+
+      <div class="other-side">
+        <h2>Principais câmbios</h2>
+
+        <div class="currencys">
+          <div class="currency">
+            <h3>Euro (€)</h3>
+            <p>€ 3,00</p>
+          </div>
+          <div class="currency">
+            <h3>Dólar ($)</h3>
+            <p>€ 3,00</p>
+          </div>
+          <div class="currency">
+            <h3>Libra (£)</h3>
+            <p>£ 3,00</p>
+          </div>
+          <div class="currency">
+            <h3>Iene (¥)</h3>
+            <p>¥ 3,00</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="pulse">
+      <p>
+        <span id="made-with">Feito com 💜 por </span>
+        <a href="https://www.linkedin.com/in/juan-vinicius-dev/" target="_blank"
+          >Juan Vinicius</a
+        >
+      </p>
+    </footer>
+  </body>
+</html>
