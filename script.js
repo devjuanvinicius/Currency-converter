@@ -1,23 +1,44 @@
 lucide.createIcons();
 
+const apiUrl = (apiKey, fromCurrency) => {
+  return `https://v6.exchangerate-api.com/v6/${apiKey}/latest/${fromCurrency}`;
+};
+
+const apiPairUrl = (apiKey, fromCurrency, toCurrency) => {
+  return `https://v6.exchangerate-api.com/v6/${apiKey}/pair/${fromCurrency}/${toCurrency}/AMOUNT`
+}
 const header = document.querySelector("header");
 const main = document.querySelector("main");
 const btnChangeLanguage = document.getElementById("btnLanguage");
 const dropdowns = document.querySelectorAll(".dropdown");
 const btnChangeCurrency = document.getElementById("arrow-converse");
-const api_key = "2138c66c539a1869cab68019";
 const btnConversion = document.getElementById("btn-conversion");
 const btnCopy = document.querySelectorAll(".icon-copy");
 
-function resetInputs() {
+function inicializeDocument() {
   const inputs = document.querySelectorAll("input");
+  const currencyValue = document.querySelectorAll(".currency p");
+
   inputs[1].disabled = false;
   inputs[1].value = "";
   inputs[0].value = "";
   inputs[1].disabled = true;
+
+  fetch("api.json")
+    .then((response) => response.json())
+    .then((data) => {
+      const apiUSD = apiPairUrl(data.apiKey, "USD", "BRL")
+      // const apiEUR = apiUrl(data.apiKey, "EUR")
+      
+      fetch(apiUSD)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data)
+        })
+    })
 }
 
-resetInputs();
+inicializeDocument();
 
 btnChangeLanguage.addEventListener("click", () => {
   const titlePage = document.querySelector("h1");
@@ -99,7 +120,7 @@ dropdowns.forEach((dropdown) => {
         select.classList.remove("select-clicked");
         menuOptions.classList.remove("menu-open");
         chevron.classList.remove("chevron-rotate");
-        resetInputs();
+        inicializeDocument();
 
         menuItems.forEach((option) => {
           option.classList.remove("active");
@@ -126,7 +147,7 @@ btnChangeCurrency.addEventListener("click", () => {
   fromCurrencyInput.dataset.currency = toCurrencyInput.dataset.currency;
   toCurrencyInput.dataset.currency = firstInputDataset;
 
-  resetInputs();
+  inicializeDocument();
 });
 
 btnConversion.addEventListener("click", () => {
@@ -137,39 +158,45 @@ btnConversion.addEventListener("click", () => {
   let fromCurrency = select[1].dataset.currency;
   let toCurrency = select[3].dataset.currency;
 
-  const api = `https://v6.exchangerate-api.com/v6/${api_key}/latest/${fromCurrency}`;
+  fetch("api.json")
+    .then((response) => response.json())
+    .then((data) => {
+      const apiKey = data.apiKey;
+      const api = apiUrl(apiKey, fromCurrency);
 
-  if (inputConversion.length != 0) {
-    fetch(api)
-      .then((resp) => resp.json())
-      .then((data) => {
-        let fromExchangeRate = data.conversion_rates[fromCurrency];
-        let toExchangeRate = data.conversion_rates[toCurrency];
+      if (inputConversion.length != 0) {
+        fetch(api)
+          .then((resp) => resp.json())
+          .then((data) => {
+            let fromExchangeRate = data.conversion_rates[fromCurrency];
+            let toExchangeRate = data.conversion_rates[toCurrency];
 
-        const convertedResult =
-          (inputConversion / fromExchangeRate) * toExchangeRate;
-        console.log(convertedResult);
-        const currencyFormated = convertedResult.toLocaleString("pt-BR", {
-          style: "currency",
-          currency: toCurrency,
-        });
+            const convertedResult =
+              (inputConversion / fromExchangeRate) * toExchangeRate;
+            console.log(convertedResult);
+            const currencyFormated = convertedResult.toLocaleString("pt-BR", {
+              style: "currency",
+              currency: toCurrency,
+            });
 
-        convertedInput.disabled = false;
-        convertedInput.value = `${currencyFormated}`;
-        convertedInput.disabled = true;
+            convertedInput.disabled = false;
+            convertedInput.value = `${currencyFormated}`;
+            convertedInput.disabled = true;
 
-        fromCurrency = "";
-        toExchangeRate = "";
-      });
-  } else {
-    btnConversion.innerText = "Digite um valor!";
-    btnConversion.classList.add("shake");
+            fromCurrency = "";
+            toExchangeRate = "";
+          });
+      } else {
+        btnConversion.innerText = "Digite um valor!";
+        btnConversion.classList.add("shake");
 
-    setTimeout(() => {
-      btnConversion.innerText = "Converter";
-      btnConversion.classList.remove("shake");
-    }, 1300);
-  }
+        setTimeout(() => {
+          btnConversion.innerText = "Converter";
+          btnConversion.classList.remove("shake");
+        }, 1300);
+      }
+    })
+    .catch((error) => console.error("Erro ao carregar configuracao", error));
 });
 
 btnCopy[1].addEventListener("click", () => {
