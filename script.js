@@ -33,7 +33,7 @@ function initializeDocument() {
             const currencyConverted = data.conversion_rates["BRL"];
             const formattedValue = currencyConverted.toLocaleString("pt-BR", {
               style: "currency",
-              currency: "BRL"
+              currency: "BRL",
             });
 
             currencyValue[positionElement].innerText = formattedValue;
@@ -182,7 +182,7 @@ btnConversion.addEventListener("click", () => {
 
             const convertedResult =
               (inputConversion / fromExchangeRate) * toExchangeRate;
-            // console.log(convertedResult);
+
             const currencyFormatted = convertedResult.toLocaleString("pt-BR", {
               style: "currency",
               currency: toCurrency,
@@ -210,16 +210,49 @@ btnConversion.addEventListener("click", () => {
 
 btnCopy[1].addEventListener("click", () => {
   const convertedInputValue = document.getElementById("converted-input").value;
+  const toastNotification = document.getElementById("toastNotification");
 
-  navigator.clipboard.writeText(convertedInputValue);
+  console.log(convertedInputValue);
 
-  btnCopy[1].classList.add("icon-copy-disabled");
-  btnCopy[0].classList.remove("icon-copy-disabled");
-  btnCopy[0].classList.add("pulse");
+  if(convertedInputValue.length !== 0){
+    navigator.clipboard.writeText(convertedInputValue);
 
-  setTimeout(() => {
-    btnCopy[0].classList.add("icon-copy-disabled");
-    btnCopy[1].classList.remove("icon-copy-disabled");
-    btnCopy[0].classList.remove("pulse");
-  }, 2500);
+    btnCopy[1].classList.add("icon-copy-disabled");
+    btnCopy[0].classList.remove("icon-copy-disabled");
+    btnCopy[0].classList.add("pulse");
+
+    toastNotification.classList.toggle("slideInRight");
+    toastNotification.classList.add("toastNotification-enable");
+
+    setTimeout(() => {
+      btnCopy[0].classList.add("icon-copy-disabled");
+      btnCopy[1].classList.remove("icon-copy-disabled");
+      btnCopy[0].classList.remove("pulse");
+
+      toastNotification.classList.remove("slideInRight");
+      toastNotification.classList.remove("toastNotification-enable");
+    }, 2500);
+  } else {
+    const spanToastNotification = toastNotification.querySelector("span");
+    const iconToastNotification = toastNotification.querySelectorAll(".copy-notification");
+
+    spanToastNotification.innerText = "Nenhum valor convertido!"
+
+    iconToastNotification[0].classList.add("icon-copy-disabled")
+    iconToastNotification[1].classList.remove("icon-copy-disabled")
+    toastNotification.classList.toggle("slideInRight");
+    toastNotification.classList.add("toastNotification-enable");
+
+    setTimeout(() => {
+      toastNotification.classList.remove("slideInRight");
+      toastNotification.classList.remove("toastNotification-enable");
+      
+      iconToastNotification[0].classList.remove("icon-copy-disabled")
+      iconToastNotification[1].classList.add("icon-copy-disabled");
+
+      spanToastNotification.innerText = "Copiado para a área de transferência!"
+    }, 2500);
+  }
+
+  
 });

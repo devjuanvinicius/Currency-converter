@@ -23,11 +23,7 @@ body {
   justify-content: center;
   align-items: center;
   gap: 23px;
-  background: linear-gradient(
-    109.6deg,
-    rgb(157, 75, 199) 11.2%,
-    #7751cc 83.1%
-  );
+  background: linear-gradient(109.6deg, rgb(157, 75, 199) 11.2%, #7751cc 83.1%);
 
   padding-top: 30px;
   width: 100vw;
@@ -142,8 +138,8 @@ main {
   background-color: #8843c9;
 }
 
-#chevron{
-  transition: .3s;
+#chevron {
+  transition: 0.3s;
 }
 
 .chevron-rotate {
@@ -174,7 +170,7 @@ main {
   gap: 10px;
 }
 
-.options li img{
+.options li img {
   width: 1.1rem;
   height: 1.1rem;
 }
@@ -211,9 +207,9 @@ main {
   -webkit-appearance: none;
 }
 
-.dropdown input{
+.dropdown input {
   margin-top: 1rem;
-  padding: .9rem;
+  padding: 0.9rem;
   width: 100%;
   background-color: #954ed85e;
   color: var(--txt-color);
@@ -225,7 +221,7 @@ main {
   outline: none;
 }
 
-.dropdown input:focus{
+.dropdown input:focus {
   border: 2px solid #6c399c5e;
 }
 
@@ -238,16 +234,16 @@ main {
   transition: 1s;
 }
 
-.icon-copy[data-lucide="check"]{
+.icon-copy[data-lucide="check"] {
   color: #4dff91;
 }
 
-.icon-copy-disabled{
+.icon-copy-disabled {
   opacity: 0;
   display: none;
 }
 
-.div-input button { 
+.div-input button {
   width: 30%;
   height: 10%;
   background-color: #954ed85e;
@@ -259,12 +255,12 @@ main {
   font-weight: 500;
 }
 
-.div-input button:hover{
+.div-input button:hover {
   background-color: #7235aa5e;
 }
 
-.error{
-  border: 2px solid #ff0043 !important; 
+.error {
+  border: 2px solid #ff0043 !important;
 }
 
 .other-side {
@@ -321,6 +317,36 @@ footer a {
 footer a:hover {
   color: #28104e;
 }
+
+.toastNotification {
+  width: 20%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  padding-left: 20px;
+  gap: 10px;
+  right: 30px;
+  bottom: 30px;
+  display: none;
+
+  border-radius: 5px;
+  background: #28104e;
+  color: #f4f5e8;
+  opacity: 0;
+}
+
+.toastNotification-enable {
+  display: flex;
+  opacity: 1;
+  transition: opacity 1s ease-out;
+}
+
+.copy-notification {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
 
 /* Animations */
 
@@ -430,32 +456,79 @@ footer a:hover {
   animation-duration: 1s;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
+}
+@-webkit-keyframes shake {
+  0%,
+  100% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
-  @-webkit-keyframes shake {
-  0%, 100% {
-  -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    -webkit-transform: translate3d(-10px, 0, 0);
+    transform: translate3d(-10px, 0, 0);
   }
-  10%, 30%, 50%, 70%, 90% {
-  -webkit-transform: translate3d(-10px, 0, 0);
-  transform: translate3d(-10px, 0, 0);
+  20%,
+  40%,
+  60%,
+  80% {
+    -webkit-transform: translate3d(10px, 0, 0);
+    transform: translate3d(10px, 0, 0);
   }
-  20%, 40%, 60%, 80% {
-  -webkit-transform: translate3d(10px, 0, 0);
-  transform: translate3d(10px, 0, 0);
+}
+@keyframes shake {
+  0%,
+  100% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    -webkit-transform: translate3d(-10px, 0, 0);
+    transform: translate3d(-10px, 0, 0);
   }
-  @keyframes shake {
-  0%, 100% {
-  -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
+  20%,
+  40%,
+  60%,
+  80% {
+    -webkit-transform: translate3d(10px, 0, 0);
+    transform: translate3d(10px, 0, 0);
   }
-  10%, 30%, 50%, 70%, 90% {
-  -webkit-transform: translate3d(-10px, 0, 0);
-  transform: translate3d(-10px, 0, 0);
+}
+
+.slideInRight {
+  -webkit-animation-name: slideInRight;
+  animation-name: slideInRight;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+@-webkit-keyframes slideInRight {
+  0% {
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+    visibility: visible;
   }
-  20%, 40%, 60%, 80% {
-  -webkit-transform: translate3d(10px, 0, 0);
-  transform: translate3d(10px, 0, 0);
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
   }
-  } 
+}
+@keyframes slideInRight {
+  0% {
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+    visibility: visible;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
