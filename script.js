@@ -214,7 +214,7 @@ btnCopy[1].addEventListener("click", () => {
 
   console.log(convertedInputValue);
 
-  if(convertedInputValue.length !== 0){
+  if (convertedInputValue.length !== 0) {
     navigator.clipboard.writeText(convertedInputValue);
 
     btnCopy[1].classList.add("icon-copy-disabled");
@@ -234,25 +234,24 @@ btnCopy[1].addEventListener("click", () => {
     }, 2500);
   } else {
     const spanToastNotification = toastNotification.querySelector("span");
-    const iconToastNotification = toastNotification.querySelectorAll(".copy-notification");
+    const iconToastNotification =
+      toastNotification.querySelectorAll(".copy-notification");
 
-    spanToastNotification.innerText = "Nenhum valor convertido!"
+    spanToastNotification.innerText = "Nenhum valor convertido!";
 
-    iconToastNotification[0].classList.add("icon-copy-disabled")
-    iconToastNotification[1].classList.remove("icon-copy-disabled")
+    iconToastNotification[0].classList.add("icon-copy-disabled");
+    iconToastNotification[1].classList.remove("icon-copy-disabled");
     toastNotification.classList.toggle("slideInRight");
     toastNotification.classList.add("toastNotification-enable");
 
     setTimeout(() => {
       toastNotification.classList.remove("slideInRight");
       toastNotification.classList.remove("toastNotification-enable");
-      
-      iconToastNotification[0].classList.remove("icon-copy-disabled")
+
+      iconToastNotification[0].classList.remove("icon-copy-disabled");
       iconToastNotification[1].classList.add("icon-copy-disabled");
 
-      spanToastNotification.innerText = "Copiado para a área de transferência!"
+      spanToastNotification.innerText = "Copiado para a área de transferência!";
     }, 2500);
   }
-
-  
 });
